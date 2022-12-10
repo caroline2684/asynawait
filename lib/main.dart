@@ -10,16 +10,20 @@ Future<String> fetchUserOrder() => Future.delayed(
   const Duration(seconds: 2),
       () => 'Large Latte',
 );*/
-Future<int> datos = MockApi().getFerrariInteger();
+/*Future<int> datos = MockApi().getFerrariInteger();
 
 doSomething(){
   //print("$datos");
   Future.delayed(const Duration(seconds: 2), () => print("$datos"));
-}
+}*/
+
+/////////////ESTE ES//////////
 
 Future<int> datosprueba() async{
   final datos = await MockApi().getFerrariInteger();
   print(datos);
+  Text("$datos");
+  //return Future.delayed(const Duration(seconds: 2), () => print('$datos'));
   return datos;
 }
 
@@ -36,18 +40,16 @@ Future<int> datosprueba2() async{
 }
 
 
-void main() async {
-  //print('Fetching user order...');
- //print(await createOrderMessage());
+void main(){
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
@@ -62,7 +64,7 @@ class FabExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FloatingActionButton Sample'),
+        title: const Text('Botones'),
       ),
       body: Center(
         child: Column(
@@ -71,27 +73,28 @@ class FabExample extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(width: 16),
+                const SizedBox(width: 8),
                 FloatingActionButton.large(
                   backgroundColor: Colors.green,
-                  onPressed: () async {
+                  onPressed: () {
                     // Add your onPressed code here!
-                    datosprueba();
-
+                    //datosprueba();
+                    print("$datosprueba()");
                   },
                   child: const Icon(Icons.thunderstorm_outlined),
                 ),
               ],
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(width: 16),
-                FloatingActionButton.large(
+                const SizedBox(width: 8),
+                FloatingActionButton(
                   backgroundColor: Colors.yellow,
                   onPressed: () {
                     // Add your onPressed code here!
-                    datosprueba1();
+                    Text("$datosprueba1()");
                   },
                   child: const Icon(Icons.car_rental),
                 ),
@@ -100,8 +103,8 @@ class FabExample extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(width: 16),
-                FloatingActionButton.large(
+                const SizedBox(width: 8),
+                FloatingActionButton(
                     backgroundColor: Colors.red,
                   onPressed: () {
                     // Add your onPressed code here!
@@ -114,24 +117,37 @@ class FabExample extends StatelessWidget {
           ],
         ),
       ),
-      /*body: FutureBuilder<int>(
-        future: datosprueba(),
-        builder: (BuildContext context,  snapshot){
-          if (!snapshot.hasData){
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            final datosprueba1 = snapshot.data;
-            return GFButton(
-              onPressed: () {
-                Text('$datosprueba1');
-              },
-              icon: Icon(Icons.home),
-            );
-          }
-          },
-      ),*/
     );
   }
 }
+
+//////ESTO ES PRUEBA////
+/*class BottomConst extends StatelessWidget{
+  const BottomConst({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: FutureBuilder<int>(
+          future: datosprueba(),
+          builder: (BuildContext context, snapshot){
+            if(!snapshot.hasData){
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }else{
+              final datosfinales=snapshot.data;
+              return Center(
+                child: Text(datosprueba().toString()),
+              );
+            }
+          },
+        ),
+      ),
+    );
+  }
+}*/
+
+
+
