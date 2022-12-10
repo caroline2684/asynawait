@@ -1,18 +1,44 @@
 import 'package:flutter/material.dart';
 import '../services/mockapi.dart';
+import 'package:getwidget/getwidget.dart';
 
-Future<String> createOrderMessage() async {
+/*Future<String> createOrderMessage() async {
   var order = await fetchUserOrder();
   return 'Your order is: $order';
 }
 Future<String> fetchUserOrder() => Future.delayed(
   const Duration(seconds: 2),
       () => 'Large Latte',
-);
+);*/
+Future<int> datos = MockApi().getFerrariInteger();
 
-Future<void> main() async {
-  print('Fetching user order...');
-  print(await createOrderMessage());
+doSomething(){
+  //print("$datos");
+  Future.delayed(const Duration(seconds: 2), () => print("$datos"));
+}
+
+Future<int> datosprueba() async{
+  final datos = await MockApi().getFerrariInteger();
+  print(datos);
+  return datos;
+}
+
+Future<int> datosprueba1() async{
+  final datos1 = await MockApi().getHyundaiInteger();
+  print(datos1);
+  return datos1;
+}
+
+Future<int> datosprueba2() async{
+  final datos1 = await MockApi().getFisherPriceInteger();
+  print(datos1);
+  return datos1;
+}
+
+
+void main() async {
+  //print('Fetching user order...');
+ //print(await createOrderMessage());
   runApp(const MyApp());
 }
 
@@ -32,7 +58,6 @@ class MyApp extends StatelessWidget {
 
 class FabExample extends StatelessWidget {
   const FabExample({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +74,10 @@ class FabExample extends StatelessWidget {
                 const SizedBox(width: 16),
                 FloatingActionButton.large(
                   backgroundColor: Colors.green,
-                  onPressed: () {
+                  onPressed: () async {
                     // Add your onPressed code here!
+                    datosprueba();
+
                   },
                   child: const Icon(Icons.thunderstorm_outlined),
                 ),
@@ -64,6 +91,7 @@ class FabExample extends StatelessWidget {
                   backgroundColor: Colors.yellow,
                   onPressed: () {
                     // Add your onPressed code here!
+                    datosprueba1();
                   },
                   child: const Icon(Icons.car_rental),
                 ),
@@ -77,6 +105,7 @@ class FabExample extends StatelessWidget {
                     backgroundColor: Colors.red,
                   onPressed: () {
                     // Add your onPressed code here!
+                    datosprueba2();
                   },
                   child: const Icon(Icons.directions_walk),
                 ),
@@ -85,6 +114,24 @@ class FabExample extends StatelessWidget {
           ],
         ),
       ),
+      /*body: FutureBuilder<int>(
+        future: datosprueba(),
+        builder: (BuildContext context,  snapshot){
+          if (!snapshot.hasData){
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            final datosprueba1 = snapshot.data;
+            return GFButton(
+              onPressed: () {
+                Text('$datosprueba1');
+              },
+              icon: Icon(Icons.home),
+            );
+          }
+          },
+      ),*/
     );
   }
 }
