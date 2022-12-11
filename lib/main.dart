@@ -1,44 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/mockapi.dart';
-import 'package:getwidget/getwidget.dart';
-
-/*Future<String> createOrderMessage() async {
-  var order = await fetchUserOrder();
-  return 'Your order is: $order';
-}
-Future<String> fetchUserOrder() => Future.delayed(
-  const Duration(seconds: 2),
-      () => 'Large Latte',
-);*/
-/*Future<int> datos = MockApi().getFerrariInteger();
-
-doSomething(){
-  //print("$datos");
-  Future.delayed(const Duration(seconds: 2), () => print("$datos"));
-}*/
-
-/////////////ESTE ES//////////
-
-Future<int> datosprueba() async{
-  final datos = await MockApi().getFerrariInteger();
-  print(datos);
-  Text("$datos");
-  //return Future.delayed(const Duration(seconds: 2), () => print('$datos'));
-  return datos;
-}
-
-Future<int> datosprueba1() async{
-  final datos1 = await MockApi().getHyundaiInteger();
-  print(datos1);
-  return datos1;
-}
-
-Future<int> datosprueba2() async{
-  final datos1 = await MockApi().getFisherPriceInteger();
-  print(datos1);
-  return datos1;
-}
-
 
 void main(){
   runApp(const MyApp());
@@ -53,66 +14,168 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
       ),
-      home: const FabExample(),
+      home: FabExample(),
     );
   }
 }
 
-class FabExample extends StatelessWidget {
-  const FabExample({super.key});
+class FabExample extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _FabExampleState();
+
+}
+
+class _FabExampleState extends State<FabExample>{
+  int ferrari=0,textferrari=0;
+  int hyundai=0, texthyundai=0;
+  int fisher=0, textfisher=0;
+  bool selected = true;
+  late double _width = 0.0,_width1 = 0.0, _width2 = 0.0;
+  late double _height = 10.0,_height1 = 10.0, _height2 = 10.0;
+  int _time = 0,_time1 = 0, _time2 = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Botones'),
+        title: const Text('Async-Await'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+
+            //primer boton//
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FloatingActionButton.large(
+                  backgroundColor: Colors.green,
+                  onPressed: () async {
+                    setState(() {
+                      _width=200.0;
+                      _height=10.0;
+                      _time= 1;
+                    });
+                    // Add your onPressed code here!
+                    //datosprueba();
+                    //print("$datosprueba()");
+                    ferrari = await MockApi().getFerrariInteger();
+                    setState(() {
+                      textferrari= ferrari;
+                      print("$textferrari");
+                      _width= 0.0;
+                      _height= 10.0;
+                      _time= 0;
+                    });
+                  },
+                  child: const Icon(Icons.flash_on_rounded),
+                ),
+              ],
+            ),
+            AnimatedContainer(
+              width: _width,
+              height: _height,
+              color: Colors.green,
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(seconds: _time),
+            ),
+            Text(
+              "$textferrari",
+              style: const TextStyle(
+                  color: Colors.green,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24.0
+              ),
+            ),
+
+            //segundo boton//
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(width: 8),
                 FloatingActionButton.large(
-                  backgroundColor: Colors.green,
-                  onPressed: () {
+                  backgroundColor: Colors.yellow,
+                  onPressed: () async {
                     // Add your onPressed code here!
-                    //datosprueba();
-                    print("$datosprueba()");
+                    setState(() {
+                      _width1=400.0;
+                      _height1=10.0;
+                      _time1= 3;
+                    });
+                    hyundai = await MockApi().getFerrariInteger();
+                    setState(() {
+                      texthyundai= hyundai;
+                      print("$texthyundai");
+                      _width1= 0.0;
+                      _height1= 10.0;
+                      _time1= 0;
+                    });
                   },
-                  child: const Icon(Icons.thunderstorm_outlined),
+                  child: const Icon(Icons.car_repair_sharp),
                 ),
               ],
+            ),
+            AnimatedContainer(
+              width: _width1,
+              height: _height1,
+              color: Colors.yellow,
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(seconds: _time1),
+            ),
+            Text(
+              "$texthyundai",
+              style: const TextStyle(
+                  color: Colors.yellow,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24.0
+              ),
             ),
 
+            //tercer boton//
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const SizedBox(width: 8),
-                FloatingActionButton(
-                  backgroundColor: Colors.yellow,
-                  onPressed: () {
+                FloatingActionButton.large(
+                  backgroundColor: Colors.red,
+                  onPressed: () async {
+                    setState(() {
+                      _width2=1600.0;
+                      _height2=10.0;
+                      _time2= 5;
+                    });
                     // Add your onPressed code here!
-                    Text("$datosprueba1()");
-                  },
-                  child: const Icon(Icons.car_rental),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(width: 8),
-                FloatingActionButton(
-                    backgroundColor: Colors.red,
-                  onPressed: () {
-                    // Add your onPressed code here!
-                    datosprueba2();
+                    fisher = await MockApi().getFerrariInteger();
+                    setState(() {
+                      textfisher= fisher;
+                      print("$textfisher");
+                      _width2= 0.0;
+                      _height2= 10.0;
+                      _time2= 0;
+                    });
                   },
                   child: const Icon(Icons.directions_walk),
                 ),
               ],
+            ),
+            AnimatedContainer(
+              width: _width2,
+              height: _height2,
+              color: Colors.red,
+              curve: Curves.fastOutSlowIn,
+              duration: Duration(seconds: _time2),
+            ),
+            Text(
+              "$textfisher",
+              style: const TextStyle(
+                  color: Colors.red,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24.0
+              ),
             ),
           ],
         ),
@@ -120,34 +183,6 @@ class FabExample extends StatelessWidget {
     );
   }
 }
-
-//////ESTO ES PRUEBA////
-/*class BottomConst extends StatelessWidget{
-  const BottomConst({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: FutureBuilder<int>(
-          future: datosprueba(),
-          builder: (BuildContext context, snapshot){
-            if(!snapshot.hasData){
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }else{
-              final datosfinales=snapshot.data;
-              return Center(
-                child: Text(datosprueba().toString()),
-              );
-            }
-          },
-        ),
-      ),
-    );
-  }
-}*/
 
 
 
